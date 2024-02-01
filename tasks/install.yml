@@ -19,7 +19,7 @@
     mode: 0755
     owner: "{{ node_exporter_system_user }}"
     group: "{{ node_exporter_system_group }}"
-  when: 
+  when:  directory_exist.stat.exist
 
   - name: copy node exporter
     copy:

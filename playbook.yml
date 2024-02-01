@@ -3,6 +3,8 @@
   become: yes
   vars:
     node_exporter_dir: /opt/node_exporter
+    template_location: ./node_exporter.service.j2
+    node_exporter_location: ./node_exporter
 
   tasks:
   - name: create directory for node exporter
@@ -15,7 +17,7 @@
 
   - name: copy node exporter
     copy:
-      src: ./node_exporter
+      src: {{ node_exporter_location }}
       dest: "{{ node_exporter_dir }}"
       mode: 0755
       owner: root
@@ -23,7 +25,7 @@
 
   - name: copy unit file
     template:
-      src: ./node_exporter.service.j2
+      src: {{ template_location }}
       dest: /etc/systemd/system/node_exporter.service
       mode: 0644
       owner: root

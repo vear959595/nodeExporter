@@ -1,0 +1,6 @@
+[Unit]
+Description=Node exporter for VictoriaMetrics
+[Service]
+ExecStart=/opt/node_exporter/node_exporter
+[Install]
+WantedBy=multi-user.target

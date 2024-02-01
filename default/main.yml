@@ -4,10 +4,12 @@ node_exporter_dir: /opt/node_exporter
 
 template_location: ./node_exporter.service.j2
 
-node_exporter_location: ./node_exporter
+node_exporter_installation_location: ./node_exporter
 
 node_exporter_web_address: 0.0.0.0:9400
 
 node_exporter_system_group: node-exporter
 
 node_exporter_system_user: node-exporter
+
+node_exporter__location: /opt/node_exporter/node_exporter

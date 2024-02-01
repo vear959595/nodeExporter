@@ -37,10 +37,6 @@
       owner: "{{ node_exporter_system_user }}"
       group: "{{ node_exporter_system_group }}"
     notify:
-      - name: daemon-reload
+      - name: Restart node exporter
 
-  - name: start node exporter
-    systemd:
-      name: node_exporter
-      state: started
-      enabled: yes
+

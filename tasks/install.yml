@@ -1,5 +1,17 @@
 ---
 
+- name: Create group for node exporter
+  group:
+    name: "{{ node_exporter_system_group }}"
+    state: present
+
+- name: Create user for node exporter
+  user:
+    name: "{{ node_exporter_system_user }}"
+    group: "{{ node_exporter_system_group }}"
+    state: present
+
+
 - name: create directory for node exporter
    file:
     path: "{{ node_exporter_dir }}"
@@ -8,6 +20,7 @@
     owner: root
     group: "{{ node_exporter_system_group }}"
   when: 
+  
   - name: copy node exporter
     copy:
       src: "{{ node_exporter_installation_location }}"

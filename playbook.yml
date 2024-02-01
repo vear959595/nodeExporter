@@ -5,11 +5,19 @@
     node_exporter_dir: /usr/local/bin
 
   tasks:
+  - name: create directory for node exporter
+    file:
+      path: "{{ node_exporter_dir }}"
+      state: directory
+      mode: 0755
+      owner: root
+      group: root
+      
   - name: copy node exporter
     copy:
       src: ./node_exporter
       dest: "{{ node_exporter_dir }}"
-      mode: 0644
+      mode: 0755
       owner: root
       group: root
 
@@ -20,9 +28,17 @@
       mode: 0644
       owner: root
       group: root
+    notify:
+      - name: daemon-reload
 
   - name: start node exporter
     systemd:
       name: node_exporter
       state: started
       enabled: yes
+
+
+  handlers:
+  - name: daemon-reload
+    systemd:
+      daemon_reload: yes

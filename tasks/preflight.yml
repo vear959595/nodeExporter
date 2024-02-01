@@ -1,0 +1,12 @@
+---
+
+- name: check directory for node exporter exists
+  stat:
+    path : "{{ node_exporter_dir }}"
+  register: directory_exist
+
+- name: check node_exporter binary exist
+  when: directory_exist.stat.exist
+  stat:
+    path : "{{ node_exporter_location }}"
+  register: binary_exist

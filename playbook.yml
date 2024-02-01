@@ -2,7 +2,7 @@
   hosts: 
   become: yes
   vars:
-    node_exporter_dir: /usr/local/bin
+    node_exporter_dir: /opt/node_exporter
 
   tasks:
   - name: create directory for node exporter
@@ -12,7 +12,7 @@
       mode: 0755
       owner: root
       group: root
-      
+
   - name: copy node exporter
     copy:
       src: ./node_exporter

@@ -2,17 +2,9 @@
   hosts: 
   become: yes
   vars:
-    node_exporter_dir: /opt/node_exporter
+    node_exporter_dir: /usr/local/bin
 
   tasks:
-  - name: Create directory for node exporter
-    file:
-      path: "{{ node_exporter_dir }}"
-      state: directory
-      mode: 0644
-      owner: root
-      group: root
-
   - name: copy node exporter
     copy:
       src: ./node_exporter
@@ -20,7 +12,7 @@
       mode: 0644
       owner: root
       group: root
-  
+
   - name: copy unit file
     copy:
       src: ./node_exporter.service
@@ -28,7 +20,7 @@
       mode: 0644
       owner: root
       group: root
-    
+
   - name: start node exporter
     systemd:
       name: node_exporter

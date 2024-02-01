@@ -1,6 +1,6 @@
 [Unit]
 Description=Node exporter for VictoriaMetrics
 [Service]
-ExecStart={{node_exporter_dir}}/node_exporter --web.listen-address=:9400
+ExecStart={{node_exporter_dir}}/node_exporter --web.listen-address= {{ node_exporter_web_address }}
 [Install]
 WantedBy=multi-user.target

@@ -17,7 +17,7 @@
 
   - name: copy node exporter
     copy:
-      src: {{ node_exporter_location }}
+      src: "{{ node_exporter_location }}"
       dest: "{{ node_exporter_dir }}"
       mode: 0755
       owner: root
@@ -25,7 +25,7 @@
 
   - name: copy unit file
     template:
-      src: {{ template_location }}
+      src: "{{ template_location }}"
       dest: /etc/systemd/system/node_exporter.service
       mode: 0644
       owner: root
@@ -41,6 +41,6 @@
 
 
   handlers:
-  - name: daemon-reload
-    systemd:
-      daemon_reload: yes
+    - name: daemon-reload
+      systemd:
+        daemon_reload: yes

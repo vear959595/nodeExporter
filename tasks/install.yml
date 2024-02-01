@@ -1,0 +1,39 @@
+---
+
+- name: create directory for node exporter
+   file:
+    path: "{{ node_exporter_dir }}"
+    state: directory
+    mode: 0755
+    owner: root
+    group: "{{ node_exporter_system_group }}"
+  when: 
+  - name: copy node exporter
+    copy:
+      src: "{{ node_exporter_location }}"
+      dest: "{{ node_exporter_dir }}"
+      mode: 0755
+      owner: root
+      group: "{{ node_exporter_system_group }}"
+
+  - name: copy unit file
+    template:
+      src: "{{ template_location }}"
+      dest: /etc/systemd/system/node_exporter.service
+      mode: 0644
+      owner: root
+      group: root
+    notify:
+      - name: daemon-reload
+
+  - name: start node exporter
+    systemd:
+      name: node_exporter
+      state: started
+      enabled: yes
+
+
+  handlers:
+    - name: daemon-reload
+      systemd:
+        daemon_reload: yes

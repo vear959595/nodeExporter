@@ -1,0 +1,36 @@
+- name: Install node exporter for victoria metrics
+  hosts: 
+  become: yes
+  vars:
+    node_exporter_dir: /opt/node_exporter
+
+  tasks:
+  - name: Create directory for node exporter
+    file:
+      path: "{{ node_exporter_dir }}"
+      state: directory
+      mode: 0644
+      owner: root
+      group: root
+
+  - name: copy node exporter
+    copy:
+      src: ./node_exporter
+      dest: "{{ node_exporter_dir }}"
+      mode: 0644
+      owner: root
+      group: root
+  
+  - name: copy unit file
+    copy:
+      src: ./node_exporter.service
+      dest: /etc/systemd/system/
+      mode: 0644
+      owner: root
+      group: root
+    
+  - name: start node exporter
+    systemd:
+      name: node_exporter
+      state: started
+      enabled: yes

@@ -10,7 +10,7 @@
   when: 
   - name: copy node exporter
     copy:
-      src: "{{ node_exporter_location }}"
+      src: "{{ node_exporter_installation_location }}"
       dest: "{{ node_exporter_dir }}"
       mode: 0755
       owner: root
@@ -31,9 +31,3 @@
       name: node_exporter
       state: started
       enabled: yes
-
-
-  handlers:
-    - name: daemon-reload
-      systemd:
-        daemon_reload: yes
